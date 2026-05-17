@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Github, Linkedin, Mail, Download, Send, Copy, Check } from "lucide-react";
+import { Github, Linkedin, Mail, FileText, Send, Copy, Check } from "lucide-react";
 import { SOCIALS } from "@/lib/data";
 
 const schema = z.object({
@@ -153,14 +153,15 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Resume download */}
+              {/* Resume link */}
               <a
-                href="/resume.pdf"
-                download="Aditya_Ajay_Deshpande_Resume.pdf"
+                href={SOCIALS.resume}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-3 px-6 py-3 rounded-xl border-2 border-[var(--secondary)] text-[var(--secondary)] hover:bg-[var(--secondary)] hover:text-white transition-all font-medium text-sm w-fit"
               >
-                <Download size={16} />
-                Download Resume
+                <FileText size={16} />
+                View Resume
               </a>
             </motion.div>
 

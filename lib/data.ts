@@ -210,4 +210,5 @@ export const SOCIALS = {
   github: "https://github.com/aditya191201",
   linkedin: "https://www.linkedin.com/in/aditya-deshpande-cs19/",
   email: "deshpande.adu01@gmail.com",
+  resume: "https://drive.google.com/file/d/1IkG2rjvRwE1pHpaVAyNCVnFx5S2liz5C/view?usp=sharing",
 };
