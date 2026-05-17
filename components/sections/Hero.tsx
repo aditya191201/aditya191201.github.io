@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, Download } from "lucide-react";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { ArrowDown, Download, X, FileText } from "lucide-react";
 import Image from "next/image";
 
 const TITLES = [
@@ -49,6 +49,77 @@ function TypewriterText() {
   );
 }
 
+function ResumeModal({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
+      {/* Modal */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ duration: 0.2 }}
+        className="relative z-10 w-full max-w-4xl bg-[var(--card)] border border-[var(--border)] rounded-2xl overflow-hidden shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--border)]">
+          <div className="flex items-center gap-2 text-sm font-medium text-[var(--foreground)]">
+            <FileText size={16} className="text-[var(--accent)]" />
+            Aditya_Ajay_Deshpande_Resume.pdf
+          </div>
+          <div className="flex items-center gap-3">
+            <a
+              href="/resume.pdf"
+              download="Aditya_Ajay_Deshpande_Resume.pdf"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-[var(--border)] text-[var(--muted)] hover:text-[var(--accent)] hover:border-[var(--accent)]/50 transition-all"
+            >
+              <Download size={13} />
+              Download
+            </a>
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-lg text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--border)]/50 transition-all"
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+
+        {/* PDF iframe */}
+        <div className="h-[75vh]">
+          <iframe
+            src="/resume.pdf"
+            className="w-full h-full"
+            title="Resume"
+          />
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 const containerVariants = {
   hidden: {},
   visible: {
@@ -63,10 +134,16 @@ const itemVariants = {
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const [leetcodeSolved, setLeetcodeSolved] = useState<number | null>(null);
   const shouldReduce = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
+    fetch("https://alfa-leetcode-api.onrender.com/aditya__19/solved")
+      .then((r) => r.json())
+      .then((data) => setLeetcodeSolved(data.solvedProblem ?? null))
+      .catch(() => null);
   }, []);
 
   const scrollToProjects = () => {
@@ -96,8 +173,13 @@ export default function Hero() {
             className="flex flex-col gap-6"
           >
             <motion.div variants={shouldReduce ? {} : itemVariants}>
-              <span className="inline-block px-3 py-1 text-xs font-mono font-medium rounded-full border border-[var(--accent)]/30 text-[var(--accent)] bg-[var(--accent)]/10 mb-4">
-                Available for opportunities
+              {/* Open to Work badge */}
+              <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-mono font-medium rounded-full border border-green-500/30 text-green-400 bg-green-500/10 mb-4">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                </span>
+                Open to opportunities
               </span>
               <p className="text-[var(--muted)] font-mono text-sm tracking-wider mb-2">
                 Hi, I&apos;m
@@ -140,14 +222,13 @@ export default function Hero() {
                 View My Work
                 <ArrowDown size={16} className="group-hover:translate-y-0.5 transition-transform" />
               </button>
-              <a
-                href="/resume.pdf"
-                download="Aditya_Ajay_Deshpande_Resume.pdf"
+              <button
+                onClick={() => setResumeOpen(true)}
                 className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm border border-[var(--border)] text-[var(--foreground)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all"
               >
-                <Download size={16} />
-                Download Resume
-              </a>
+                <FileText size={16} />
+                View Resume
+              </button>
             </motion.div>
 
             <motion.div
@@ -158,6 +239,7 @@ export default function Hero() {
                 { label: "GPA", value: "4.0" },
                 { label: "Roles", value: "4+" },
                 { label: "Projects", value: "10+" },
+                { label: "LeetCode", value: leetcodeSolved !== null ? `${leetcodeSolved}` : "…" },
               ].map(({ label, value }) => (
                 <div key={label} className="text-center">
                   <div className="font-display text-2xl font-bold gradient-text">{value}</div>
@@ -241,6 +323,13 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Resume modal */}
+      {mounted && (
+        <AnimatePresence>
+          {resumeOpen && <ResumeModal onClose={() => setResumeOpen(false)} />}
+        </AnimatePresence>
+      )}
     </section>
   );
 }

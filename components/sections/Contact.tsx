@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Github, Linkedin, Mail, Download, Send } from "lucide-react";
+import { Github, Linkedin, Mail, Download, Send, Copy, Check } from "lucide-react";
 import { SOCIALS } from "@/lib/data";
 
 const schema = z.object({
@@ -26,30 +26,10 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.15 } },
 };
 
-const SOCIAL_LINKS = [
-  {
-    label: "GitHub",
-    href: SOCIALS.github,
-    icon: Github,
-    description: "View my code",
-  },
-  {
-    label: "LinkedIn",
-    href: SOCIALS.linkedin,
-    icon: Linkedin,
-    description: "Connect with me",
-  },
-  {
-    label: "Email",
-    href: `mailto:${SOCIALS.email}`,
-    icon: Mail,
-    description: SOCIALS.email,
-  },
-];
-
 export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [copied, setCopied] = useState(false);
 
   const {
     register,
@@ -66,6 +46,12 @@ export default function Contact() {
     });
     if (!res.ok) throw new Error("Failed to send");
     reset();
+  };
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(SOCIALS.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -103,25 +89,68 @@ export default function Contact() {
 
               {/* Social links */}
               <div className="space-y-3">
-                {SOCIAL_LINKS.map(({ label, href, icon: Icon, description }) => (
+                {/* GitHub */}
+                <a
+                  href={SOCIALS.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] hover:border-[var(--accent)]/50 hover:bg-[var(--accent)]/5 transition-all"
+                >
+                  <div className="p-2.5 rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] shrink-0">
+                    <Github size={18} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-[var(--foreground)] text-sm group-hover:text-[var(--accent)] transition-colors">
+                      GitHub
+                    </div>
+                    <div className="text-xs text-[var(--muted)]">View my code</div>
+                  </div>
+                </a>
+
+                {/* LinkedIn */}
+                <a
+                  href={SOCIALS.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] hover:border-[var(--accent)]/50 hover:bg-[var(--accent)]/5 transition-all"
+                >
+                  <div className="p-2.5 rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] shrink-0">
+                    <Linkedin size={18} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-[var(--foreground)] text-sm group-hover:text-[var(--accent)] transition-colors">
+                      LinkedIn
+                    </div>
+                    <div className="text-xs text-[var(--muted)]">Connect with me</div>
+                  </div>
+                </a>
+
+                {/* Email — with copy button inside */}
+                <div className="group flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] hover:border-[var(--accent)]/50 hover:bg-[var(--accent)]/5 transition-all">
+                  <div className="p-2.5 rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] shrink-0">
+                    <Mail size={18} />
+                  </div>
                   <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith("mailto") ? "_self" : "_blank"}
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] hover:border-[var(--accent)]/50 hover:bg-[var(--accent)]/5 transition-all"
+                    href={`mailto:${SOCIALS.email}`}
+                    className="flex-1 min-w-0"
                   >
-                    <div className="p-2.5 rounded-lg bg-[var(--accent)]/10 text-[var(--accent)] shrink-0">
-                      <Icon size={18} />
+                    <div className="font-medium text-[var(--foreground)] text-sm group-hover:text-[var(--accent)] transition-colors">
+                      Email
                     </div>
-                    <div>
-                      <div className="font-medium text-[var(--foreground)] text-sm group-hover:text-[var(--accent)] transition-colors">
-                        {label}
-                      </div>
-                      <div className="text-xs text-[var(--muted)]">{description}</div>
-                    </div>
+                    <div className="text-xs text-[var(--muted)] truncate">{SOCIALS.email}</div>
                   </a>
-                ))}
+                  <button
+                    onClick={copyEmail}
+                    aria-label="Copy email address"
+                    className={`p-1.5 rounded-lg transition-all shrink-0 ${
+                      copied
+                        ? "text-green-400"
+                        : "text-[var(--muted)] hover:text-[var(--accent)]"
+                    }`}
+                  >
+                    {copied ? <Check size={15} /> : <Copy size={15} />}
+                  </button>
+                </div>
               </div>
 
               {/* Resume download */}
