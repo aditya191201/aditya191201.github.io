@@ -13,6 +13,7 @@ import {
 } from "react-icons/si";
 import { FlaskConical } from "lucide-react";
 import { SKILLS } from "@/lib/data";
+import LeetCodeStats from "@/components/ui/LeetCodeStats";
 
 type IconComponent = React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
 
@@ -125,6 +126,8 @@ export default function Skills() {
               </motion.div>
             ))}
           </div>
+
+          <LeetCodeStats />
         </motion.div>
       </div>
     </section>
