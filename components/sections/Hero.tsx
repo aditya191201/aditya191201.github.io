@@ -1,19 +1,9 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { useTheme } from "next-themes";
 import { ArrowDown, Download } from "lucide-react";
-import dynamic from "next/dynamic";
-
-const NeuralNetwork = dynamic(() => import("@/components/three/NeuralNetwork"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-32 h-32 rounded-full border border-[var(--accent)]/30 animate-pulse" />
-    </div>
-  ),
-});
+import Image from "next/image";
 
 const TITLES = [
   "AI-First Engineer",
@@ -72,7 +62,6 @@ const itemVariants = {
 };
 
 export default function Hero() {
-  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const shouldReduce = useReducedMotion();
 
@@ -89,14 +78,16 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Background gradient blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* ── Static gradient blobs ── */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-[var(--accent)]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] bg-[var(--secondary)]/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 pb-10">
+      {/* ── Content ── */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 pb-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+
           {/* Left — Text */}
           <motion.div
             variants={shouldReduce ? {} : containerVariants}
@@ -112,13 +103,16 @@ export default function Hero() {
                 Hi, I&apos;m
               </p>
               <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-[var(--foreground)]">
-                Aditya
+                Aditya Ajay
                 <br />
                 Deshpande
               </h1>
             </motion.div>
 
-            <motion.div variants={shouldReduce ? {} : itemVariants} className="text-2xl sm:text-3xl font-display font-semibold h-10">
+            <motion.div
+              variants={shouldReduce ? {} : itemVariants}
+              className="text-2xl sm:text-3xl font-display font-semibold h-10"
+            >
               <TypewriterText />
             </motion.div>
 
@@ -135,7 +129,10 @@ export default function Hero() {
               Context SWE Co-Op.
             </motion.p>
 
-            <motion.div variants={shouldReduce ? {} : itemVariants} className="flex flex-wrap gap-4 pt-2">
+            <motion.div
+              variants={shouldReduce ? {} : itemVariants}
+              className="flex flex-wrap gap-4 pt-2"
+            >
               <button
                 onClick={scrollToProjects}
                 className="group flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm bg-[var(--accent)] text-[var(--background)] hover:opacity-90 transition-all shadow-lg shadow-[var(--accent)]/20 hover:shadow-[var(--accent)]/40"
@@ -145,7 +142,7 @@ export default function Hero() {
               </button>
               <a
                 href="/resume.pdf"
-                download="Aditya_Deshpande_Resume.pdf"
+                download="Aditya_Ajay_Deshpande_Resume.pdf"
                 className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm border border-[var(--border)] text-[var(--foreground)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all"
               >
                 <Download size={16} />
@@ -153,7 +150,10 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            <motion.div variants={shouldReduce ? {} : itemVariants} className="flex items-center gap-6 pt-4">
+            <motion.div
+              variants={shouldReduce ? {} : itemVariants}
+              className="flex items-center gap-6 pt-4"
+            >
               {[
                 { label: "GPA", value: "4.0" },
                 { label: "Roles", value: "4+" },
@@ -167,19 +167,60 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right — 3D Canvas */}
+          {/* Right — Photo */}
           <motion.div
-            initial={shouldReduce ? {} : { opacity: 0, scale: 0.9 }}
+            initial={shouldReduce ? {} : { opacity: 0, scale: 0.92 }}
             animate={shouldReduce ? {} : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="relative h-[400px] lg:h-[520px] w-full"
+            className="flex items-center justify-center"
           >
-            {mounted && (
-              <NeuralNetwork isDark={resolvedTheme === "dark"} />
-            )}
+            <div className="relative">
+              {/* Outer glow ring */}
+              <div
+                className="absolute -inset-3 rounded-full opacity-30 blur-xl"
+                style={{
+                  background:
+                    "conic-gradient(from 0deg, var(--accent), var(--secondary), var(--accent))",
+                }}
+              />
+              {/* Spinning gradient border */}
+              <div className="relative p-[3px] rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(135deg, var(--accent), var(--secondary), var(--accent))",
+                }}
+              >
+                {/* Photo frame */}
+                <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden bg-[var(--card)]">
+                  <Image
+                    src="/profile-picture.png"
+                    alt="Aditya Deshpande"
+                    fill
+                    sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </div>
 
-            {/* Decorative ring */}
-            <div className="absolute inset-4 rounded-full border border-[var(--accent)]/10 pointer-events-none" />
+              {/* Floating badge — Current role */}
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -bottom-2 -left-6 px-3 py-2 rounded-xl text-xs font-mono font-medium border border-[var(--accent)]/30 bg-[var(--card)] text-[var(--accent)] shadow-lg backdrop-blur-sm whitespace-nowrap"
+              >
+                🎓 Northeastern · 4.0 GPA
+              </motion.div>
+
+              {/* Floating badge — Stack */}
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute -top-2 -right-6 px-3 py-2 rounded-xl text-xs font-mono font-medium border border-[var(--secondary)]/30 bg-[var(--card)] text-[var(--secondary)] shadow-lg backdrop-blur-sm whitespace-nowrap"
+              >
+                ⚡ AI · MCP · RAG
+              </motion.div>
+            </div>
           </motion.div>
         </div>
 

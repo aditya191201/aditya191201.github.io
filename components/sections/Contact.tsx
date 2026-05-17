@@ -125,7 +125,7 @@ export default function Contact() {
               {/* Resume download */}
               <a
                 href="/resume.pdf"
-                download="Aditya_Deshpande_Resume.pdf"
+                download="Aditya_Ajay_Deshpande_Resume.pdf"
                 className="group flex items-center gap-3 px-6 py-3 rounded-xl border-2 border-[var(--secondary)] text-[var(--secondary)] hover:bg-[var(--secondary)] hover:text-white transition-all font-medium text-sm w-fit"
               >
                 <Download size={16} />

@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm text-[var(--muted)]">
             <span className="font-display font-semibold text-[var(--foreground)]">
-              Aditya Deshpande
+              Aditya Ajay Deshpande
             </span>{" "}
             · © {new Date().getFullYear()} · Built with Next.js + Three.js
           </div>

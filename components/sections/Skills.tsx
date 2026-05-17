@@ -4,12 +4,14 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   SiPython, SiTypescript, SiJavascript, SiPostgresql,
-  SiNextdotjs, SiReact, SiFastapi, SiNodedotjs, SiDotnet,
-  SiOpenai, SiPytorch, SiMongodb, SiRedis,
-  SiDocker, SiGit, SiGithubactions, SiKubernetes,
-  SiVercel, SiFigma, SiLinux, SiOpenjdk, SiLangchain,
+  SiNextdotjs, SiReact, SiNodedotjs, SiDotnet,
+  SiOpenai, SiMongodb, SiRedis,
+  SiDocker, SiGit, SiKubernetes,
+  SiVercel, SiFigma, SiOpenjdk, SiLangchain,
+  SiSwift, SiHtml5, SiExpress, SiSpringboot, SiGraphql,
+  SiVitest, SiCypress, SiJest, SiMysql,
 } from "react-icons/si";
-import { Cloud, Database } from "lucide-react";
+import { FlaskConical } from "lucide-react";
 import { SKILLS } from "@/lib/data";
 
 type IconComponent = React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
@@ -18,30 +20,31 @@ const ICON_MAP: Record<string, IconComponent> = {
   SiPython: SiPython as IconComponent,
   SiTypescript: SiTypescript as IconComponent,
   SiJavascript: SiJavascript as IconComponent,
-  SiCsharp: SiDotnet as IconComponent, // closest fallback
-  SiPostgresql: SiPostgresql as IconComponent,
   SiOpenjdk: SiOpenjdk as IconComponent,
+  SiSwift: SiSwift as IconComponent,
+  SiHtml5: SiHtml5 as IconComponent,
+  SiPostgresql: SiPostgresql as IconComponent,
   SiNextdotjs: SiNextdotjs as IconComponent,
   SiReact: SiReact as IconComponent,
-  SiFastapi: SiFastapi as IconComponent,
   SiNodedotjs: SiNodedotjs as IconComponent,
+  SiExpress: SiExpress as IconComponent,
+  SiSpringboot: SiSpringboot as IconComponent,
+  SiGraphql: SiGraphql as IconComponent,
   SiDotnet: SiDotnet as IconComponent,
   SiLangchain: SiLangchain as IconComponent,
   SiOpenai: SiOpenai as IconComponent,
-  SiAnthropic: SiOpenai as IconComponent,
-  SiPytorch: SiPytorch as IconComponent,
-  SiPinecone: Database as IconComponent,
+  SiVitest: SiVitest as IconComponent,
+  SiPlaywright: FlaskConical as IconComponent, // no SI icon for Playwright
+  SiCypress: SiCypress as IconComponent,
+  SiJest: SiJest as IconComponent,
+  SiMysql: SiMysql as IconComponent,
   SiMongodb: SiMongodb as IconComponent,
   SiRedis: SiRedis as IconComponent,
-  SiMicrosoftazure: Cloud as IconComponent,
-  SiAmazonwebservices: Cloud as IconComponent,
   SiDocker: SiDocker as IconComponent,
-  SiGit: SiGit as IconComponent,
-  SiGithubactions: SiGithubactions as IconComponent,
   SiKubernetes: SiKubernetes as IconComponent,
+  SiGit: SiGit as IconComponent,
   SiVercel: SiVercel as IconComponent,
   SiFigma: SiFigma as IconComponent,
-  SiLinux: SiLinux as IconComponent,
 };
 
 const fadeUp = {
@@ -77,7 +80,6 @@ export default function Skills() {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          {/* Header */}
           <motion.div variants={fadeUp} className="mb-16">
             <span className="text-[var(--accent)] font-mono text-sm font-medium">
               04 / skills

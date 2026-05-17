@@ -86,12 +86,12 @@ export default function Experience() {
                         <p className="text-[var(--accent)] font-medium mt-0.5">{exp.company}</p>
                       </div>
                       <div className="text-right space-y-1">
-                        <div className="flex items-center gap-1.5 text-xs text-[var(--muted)] justify-end">
-                          <Calendar size={11} />
+                        <div className="flex items-center gap-1.5 text-sm text-[var(--muted)] justify-end">
+                          <Calendar size={13} />
                           {exp.duration}
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs text-[var(--muted)] justify-end">
-                          <MapPin size={11} />
+                        <div className="flex items-center gap-1.5 text-sm text-[var(--muted)] justify-end">
+                          <MapPin size={13} />
                           {exp.location}
                         </div>
                       </div>

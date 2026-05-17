@@ -15,20 +15,18 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.15 } },
 };
 
-function ProjectCard({ project, featured }: { project: Project; featured?: boolean }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.div
       variants={fadeUp}
       whileHover={{ y: -6, transition: { duration: 0.2 } }}
-      className={`group relative p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] hover:border-[var(--accent)]/50 transition-all cursor-default overflow-hidden ${
-        featured ? "lg:col-span-3" : ""
-      }`}
+      className="group relative p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] hover:border-[var(--accent)]/50 transition-all cursor-default overflow-hidden"
     >
       {/* Hover glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/0 to-[var(--accent)]/0 group-hover:from-[var(--accent)]/5 group-hover:to-[var(--secondary)]/5 transition-all duration-500 rounded-2xl pointer-events-none" />
 
-      <div className={`relative ${featured ? "lg:flex lg:gap-10 lg:items-start" : ""}`}>
-        <div className={`${featured ? "lg:flex-1" : ""}`}>
+      <div className="relative">
+        <div>
           <div className="flex items-start justify-between gap-4 mb-3">
             <h3 className="font-display font-bold text-xl text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
               {project.name}
@@ -62,11 +60,11 @@ function ProjectCard({ project, featured }: { project: Project; featured?: boole
           </div>
 
           <p className="text-[var(--muted)] text-sm leading-relaxed mb-4">
-            {featured && project.longDescription ? project.longDescription : project.description}
+            {project.description}
           </p>
         </div>
 
-        <div className={`${featured ? "lg:shrink-0 lg:w-72" : ""}`}>
+        <div>
           <div className="flex flex-wrap gap-2 pt-3 border-t border-[var(--border)]">
             {project.tech.map((t) => (
               <span
@@ -87,9 +85,6 @@ export default function Projects() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const featured = PROJECTS.find((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
-
   return (
     <section id="projects" className="py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -109,16 +104,9 @@ export default function Projects() {
             </h2>
           </motion.div>
 
-          {/* Featured project */}
-          {featured && (
-            <div className="grid lg:grid-cols-3 gap-6 mb-6">
-              <ProjectCard project={featured} featured />
-            </div>
-          )}
-
-          {/* Other projects */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {rest.map((project) => (
+          {/* All projects — uniform 3-column grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PROJECTS.map((project) => (
               <ProjectCard key={project.name} project={project} />
             ))}
           </div>
