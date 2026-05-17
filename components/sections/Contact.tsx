@@ -59,10 +59,12 @@ export default function Contact() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
-    // Mailto fallback
-    const subject = encodeURIComponent(`Portfolio Contact from ${data.name}`);
-    const body = encodeURIComponent(`Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`);
-    window.open(`mailto:${SOCIALS.email}?subject=${subject}&body=${body}`, "_blank");
+    const res = await fetch("https://formspree.io/f/xvzypjlg", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error("Failed to send");
     reset();
   };
 
@@ -138,7 +140,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 {isSubmitSuccessful && (
                   <div className="p-4 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/30 text-[var(--accent)] text-sm font-medium">
-                    Message sent! Your mail client should open. I&apos;ll get back to you soon.
+                    Message sent! I&apos;ll get back to you soon.
                   </div>
                 )}
 
