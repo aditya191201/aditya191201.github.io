@@ -3,49 +3,72 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
-  SiPython, SiTypescript, SiJavascript, SiPostgresql,
-  SiNextdotjs, SiReact, SiNodedotjs, SiDotnet,
-  SiOpenai, SiMongodb, SiRedis,
-  SiDocker, SiGit, SiKubernetes,
-  SiVercel, SiFigma, SiOpenjdk, SiLangchain,
-  SiSwift, SiHtml5, SiExpress, SiSpringboot, SiGraphql,
-  SiVitest, SiCypress, SiJest, SiMysql,
-} from "react-icons/si";
-import { FlaskConical } from "lucide-react";
+  JavaOriginal,
+  JavascriptOriginal,
+  TypescriptOriginal,
+  PythonOriginal,
+  SwiftOriginal,
+  Html5Original,
+  ReactOriginal,
+  NextjsOriginal,
+  NodejsOriginal,
+  ExpressOriginal,
+  SpringOriginal,
+  GraphqlPlain,
+  VitestOriginal,
+  PlaywrightOriginal,
+  CypressioOriginal,
+  JestPlain,
+  MysqlOriginal,
+  MongodbOriginal,
+  PostgresqlOriginal,
+  RedisOriginal,
+  DockerOriginal,
+  KubernetesPlain,
+  GitOriginal,
+} from "devicons-react";
+// Direct subpath imports bypass the barrel re-export that pulls in @lobehub/ui
+// @ts-ignore – no bundled type declarations for this deep path
+import ClaudeCodeColor from "@lobehub/icons/es/ClaudeCode/components/Color";
+// @ts-ignore
+import LangChainColor from "@lobehub/icons/es/LangChain/components/Color";
+// @ts-ignore
+import CursorMono from "@lobehub/icons/es/Cursor/components/Mono";
 import { SKILLS } from "@/lib/data";
 import LeetCodeStats from "@/components/ui/LeetCodeStats";
 
-type IconComponent = React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+type IconComponent = React.ComponentType<{ size?: number | string; className?: string }>;
+
+// Icons that are naturally black on transparent — invert to white in dark mode
+const DARK_INVERT = new Set(["ExpressOriginal"]);
 
 const ICON_MAP: Record<string, IconComponent> = {
-  SiPython: SiPython as IconComponent,
-  SiTypescript: SiTypescript as IconComponent,
-  SiJavascript: SiJavascript as IconComponent,
-  SiOpenjdk: SiOpenjdk as IconComponent,
-  SiSwift: SiSwift as IconComponent,
-  SiHtml5: SiHtml5 as IconComponent,
-  SiPostgresql: SiPostgresql as IconComponent,
-  SiNextdotjs: SiNextdotjs as IconComponent,
-  SiReact: SiReact as IconComponent,
-  SiNodedotjs: SiNodedotjs as IconComponent,
-  SiExpress: SiExpress as IconComponent,
-  SiSpringboot: SiSpringboot as IconComponent,
-  SiGraphql: SiGraphql as IconComponent,
-  SiDotnet: SiDotnet as IconComponent,
-  SiLangchain: SiLangchain as IconComponent,
-  SiOpenai: SiOpenai as IconComponent,
-  SiVitest: SiVitest as IconComponent,
-  SiPlaywright: FlaskConical as IconComponent, // no SI icon for Playwright
-  SiCypress: SiCypress as IconComponent,
-  SiJest: SiJest as IconComponent,
-  SiMysql: SiMysql as IconComponent,
-  SiMongodb: SiMongodb as IconComponent,
-  SiRedis: SiRedis as IconComponent,
-  SiDocker: SiDocker as IconComponent,
-  SiKubernetes: SiKubernetes as IconComponent,
-  SiGit: SiGit as IconComponent,
-  SiVercel: SiVercel as IconComponent,
-  SiFigma: SiFigma as IconComponent,
+  JavaOriginal: JavaOriginal as IconComponent,
+  JavascriptOriginal: JavascriptOriginal as IconComponent,
+  TypescriptOriginal: TypescriptOriginal as IconComponent,
+  PythonOriginal: PythonOriginal as IconComponent,
+  SwiftOriginal: SwiftOriginal as IconComponent,
+  Html5Original: Html5Original as IconComponent,
+  ReactOriginal: ReactOriginal as IconComponent,
+  NextjsOriginal: NextjsOriginal as IconComponent,
+  NodejsOriginal: NodejsOriginal as IconComponent,
+  ExpressOriginal: ExpressOriginal as IconComponent,
+  SpringOriginal: SpringOriginal as IconComponent,
+  GraphqlPlain: GraphqlPlain as IconComponent,
+  VitestOriginal: VitestOriginal as IconComponent,
+  PlaywrightOriginal: PlaywrightOriginal as IconComponent,
+  CypressioOriginal: CypressioOriginal as IconComponent,
+  JestPlain: JestPlain as IconComponent,
+  MysqlOriginal: MysqlOriginal as IconComponent,
+  MongodbOriginal: MongodbOriginal as IconComponent,
+  PostgresqlOriginal: PostgresqlOriginal as IconComponent,
+  RedisOriginal: RedisOriginal as IconComponent,
+  DockerOriginal: DockerOriginal as IconComponent,
+  KubernetesPlain: KubernetesPlain as IconComponent,
+  GitOriginal: GitOriginal as IconComponent,
+  LangChain: LangChainColor as IconComponent,
+  ClaudeCode: ClaudeCodeColor as IconComponent,
+  Cursor: CursorMono as IconComponent,
 };
 
 const fadeUp = {
@@ -102,6 +125,7 @@ export default function Skills() {
                 >
                   {group.skills.map((skill) => {
                     const Icon = ICON_MAP[skill.icon];
+                    const invertClass = DARK_INVERT.has(skill.icon) ? " dark:invert" : "";
                     return (
                       <motion.div
                         key={skill.name}
@@ -110,9 +134,9 @@ export default function Skills() {
                         className="group flex flex-col items-center gap-2.5 p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] hover:border-[var(--accent)]/50 hover:bg-[var(--accent)]/5 transition-all cursor-default"
                       >
                         {Icon ? (
-                          <Icon className="text-2xl text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors" />
+                          <Icon size={28} className={`opacity-85 group-hover:opacity-100 transition-opacity${invertClass}`} />
                         ) : (
-                          <div className="w-6 h-6 rounded bg-[var(--accent)]/20 text-[var(--accent)] flex items-center justify-center text-xs font-mono font-bold">
+                          <div className="w-7 h-7 rounded bg-[var(--accent)]/20 text-[var(--accent)] flex items-center justify-center text-xs font-mono font-bold">
                             {skill.name[0]}
                           </div>
                         )}
