@@ -175,7 +175,7 @@ export const SKILLS: SkillGroup[] = [
     ],
   },
   {
-    category: "AI & DevOps",
+    category: "AI & Cloud",
     skills: [
       { name: "LangChain", icon: "LangChain" },
       { name: "Claude Code", icon: "ClaudeCode" },

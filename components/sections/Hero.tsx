@@ -7,10 +7,10 @@ import Image from "next/image";
 import { SOCIALS } from "@/lib/data";
 
 const TITLES = [
-  "AI-First Engineer",
-  "Software Engineer",
+  "AI-First Software Engineer",
+  "Full-Stack Engineer",
+  "AI Systems Builder",
   "MS CS @ Northeastern",
-  "MCP & RAG Builder",
 ];
 
 function TypewriterText() {
@@ -132,13 +132,13 @@ export default function Hero() {
               variants={shouldReduce ? {} : itemVariants}
               className="text-[var(--muted)] text-lg leading-relaxed max-w-lg"
             >
-              I build{" "}
-              <span className="text-[var(--foreground)] font-medium">AI agents</span>,{" "}
-              <span className="text-[var(--foreground)] font-medium">MCP systems</span> &{" "}
-              <span className="text-[var(--foreground)] font-medium">developer tooling</span>{" "}
-              that ships. Currently at{" "}
-              <span className="text-[var(--accent)] font-medium">MasterControl</span> as AI
-              Context SWE Co-Op.
+              Full-stack engineer who builds{" "}
+              <span className="text-[var(--foreground)] font-medium">production software</span>{" "}
+              across the stack — from{" "}
+              <span className="text-[var(--foreground)] font-medium">React & Node</span> to{" "}
+              <span className="text-[var(--foreground)] font-medium">AI systems & infra</span>.
+              {" "}Currently at{" "}
+              <span className="text-[var(--accent)] font-medium">MasterControl</span>.
             </motion.p>
 
             <motion.div
@@ -232,7 +232,7 @@ export default function Hero() {
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                 className="absolute -top-2 -right-6 px-3 py-2 rounded-xl text-xs font-mono font-medium border border-[var(--secondary)]/30 bg-[var(--card)] text-[var(--secondary)] shadow-lg backdrop-blur-sm whitespace-nowrap"
               >
-                ⚡ AI · MCP · RAG
+                ⚡ Full-Stack · AI · Infra
               </motion.div>
             </div>
           </motion.div>

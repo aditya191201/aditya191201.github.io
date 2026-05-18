@@ -43,48 +43,46 @@ export default function About() {
             {/* Bio */}
             <motion.div variants={fadeUp} className="space-y-5">
               <p className="text-[var(--muted)] text-lg leading-relaxed">
-                I&apos;m an AI-first software engineer pursuing my{" "}
+                I&apos;m a full-stack software engineer pursuing my{" "}
                 <span className="text-[var(--foreground)] font-medium">
                   MS in Computer Science at Northeastern University
                 </span>{" "}
-                (4.0 GPA), currently working as an{" "}
+                (4.0 GPA), currently a{" "}
                 <span className="text-[var(--accent)] font-medium">
-                  AI Context Software Engineer Co-Op at MasterControl
+                  Software Engineer Co-Op at MasterControl
                 </span>
                 .
               </p>
               <p className="text-[var(--muted)] text-lg leading-relaxed">
-                My work sits at the intersection of{" "}
+                I build across the whole stack —{" "}
                 <span className="text-[var(--foreground)] font-medium">
-                  AI systems engineering and product development
+                  React frontends, Node & Python backends, distributed systems
                 </span>
-                . I specialize in building{" "}
+                , and{" "}
                 <span className="text-[var(--foreground)] font-medium">
-                  MCP (Model Context Protocol) systems
+                  cloud infrastructure
                 </span>
-                ,{" "}
-                <span className="text-[var(--foreground)] font-medium">RAG pipelines</span>,
-                and{" "}
+                . Over the last year I&apos;ve gone deep on{" "}
                 <span className="text-[var(--foreground)] font-medium">
-                  multi-agent orchestration frameworks
+                  AI systems
                 </span>{" "}
-                — tools that make AI models genuinely useful in production.
+                — shipping RAG pipelines, agent orchestration, and MCP integrations used by 100+ engineers in production.
               </p>
               <p className="text-[var(--muted)] text-lg leading-relaxed">
-                When I&apos;m not building AI tooling, I&apos;m thinking about developer experience,
-                distributed systems, and how to make software that both humans and AI models can
-                reason about effectively.
+                I care about{" "}
+                <span className="text-[var(--foreground)] font-medium">developer experience</span>,
+                clean APIs, and software that&apos;s easy to reason about — whether the reader is a human or a model.
               </p>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 pt-2">
                 {[
-                  "AI Agents",
-                  "MCP Systems",
-                  "RAG Pipelines",
-                  "Multi-Agent Orchestration",
                   "Full-Stack",
-                  "Developer Tooling",
+                  "React & TypeScript",
+                  "Python & Node.js",
+                  "AI Systems",
+                  "Cloud & Infra",
+                  "Developer Experience",
                 ].map((tag) => (
                   <span
                     key={tag}
