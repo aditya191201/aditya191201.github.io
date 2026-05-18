@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
+import RocketLoader from "@/components/ui/RocketLoader";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
@@ -27,6 +28,8 @@ export default function Home() {
 
   return (
     <>
+      <RocketLoader />
+
       {/* Fixed full-page 3D background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {mounted && <HeroBackground isDark={resolvedTheme === "dark"} />}
