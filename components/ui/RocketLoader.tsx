@@ -7,7 +7,7 @@ export default function RocketLoader() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(false), 2800);
+    const timer = setTimeout(() => setVisible(false), 1800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -20,7 +20,7 @@ export default function RocketLoader() {
           style={{ backgroundColor: "var(--background)" }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <Stars />
 
@@ -29,7 +29,7 @@ export default function RocketLoader() {
             style={{ marginBottom: -6 }}
             initial={{ y: 0 }}
             animate={{ y: "-115vh" }}
-            transition={{ duration: 2.0, ease: [0.2, 1, 0.3, 1], delay: 0.4 }}
+            transition={{ duration: 1.3, ease: [0.2, 1, 0.3, 1], delay: 0.2 }}
           >
             <Flame />
 

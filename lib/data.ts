@@ -31,13 +31,14 @@ export const EXPERIENCE: Experience[] = [
     location: "Salt Lake City, UT",
     current: true,
     bullets: [
+      "Created agent orchestration system using MCP integrating with Codex & Claude Code for automated workflows",
+      "Configured Okta SSO and OAuth 2.0 for internal developer MCP tools with IAM role-based access, tracking adoption metrics via Grafana dashboards",
       "Building specialized AI agents leveraging 100+ MCP Commands & Resources with org-specific context and architecture automating tasks right from Product requirements to Deployment promoting Spec-Driven Development",
-      "Created multi-agent orchestration system using MCP integrating with Cursor & Claude Code for automated workflows",
       "Implementing semantic search pipeline using Python and LangChain with vector embeddings to retrieve design system patterns, API specs, and codebase context, powering RAG-augmented code generation across 100+ engineers",
-      "Deployed PortKeyAI Gateway on Kubernetes proxying to AWS Bedrock instance enabling Claude Code cost tracking",
+      "Deployed LiteLLM Gateway on Kubernetes proxying to AWS Bedrock instance enabling Claude Code cost tracking",
       "Engineered OpenTelemetry based service with JWT authentication, proxying OTLP traces/metrics/logs to Grafana",
     ],
-    tech: ["Python", "LangChain", "MCP", "RAG", "Kubernetes", "AWS Bedrock", "OpenTelemetry", "Claude Code"],
+    tech: ["Python", "LangChain", "MCP", "RAG", "Kubernetes", "AWS Bedrock", "OpenTelemetry", "Claude Code", "Okta", "OAuth 2.0"],
   },
   {
     company: "MasterControl",
