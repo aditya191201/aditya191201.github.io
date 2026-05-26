@@ -84,6 +84,15 @@ export const EXPERIENCE: Experience[] = [
 
 export const PROJECTS: Project[] = [
   {
+    name: "Synaptic",
+    description: "MCP server that indexes codebases into a Neo4j graph, enabling Claude Code to locate symbols, trace call graphs, and find similar code without reading dozens of files",
+    longDescription:
+      "Built an MCP server that indexes codebases into Neo4j graphs using tree-sitter for multi-language parsing (TypeScript, JavaScript, React, Java). Exposes 8 MCP tools — findSymbol, findCallers, findCallees, findDeadCode, findImpactedFiles, findSimilarCode, getFileSummary, and queryCodebase — enabling token-efficient code navigation for LLMs. Features local ONNX-based semantic embeddings (all-MiniLM-L6-v2), three-pass indexing pipeline, call graph traversal, and a full CLI for standalone querying without an LLM client.",
+    tech: ["Neo4j", "MCP", "Tree-sitter", "Node.js", "TypeScript", "Docker", "Hugging Face", "Cypher"],
+    github: "https://github.com/aditya191201/synaptic",
+    featured: true,
+  },
+  {
     name: "Study Buddy",
     description: "Full-stack AI study platform that processes educational videos into interactive flashcards, mind maps and quizzes",
     longDescription:
